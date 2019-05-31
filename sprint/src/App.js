@@ -1,25 +1,49 @@
-import React from 'react';
-import './App.css';
+import React, { Component } from "react";
+import "./App.css";
+import axios from "axios";
+import ProjectsList from "./components/Projects";
+import ActionsList from "./components/Actions";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
+const url = "http://localhost:8000";
 
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      projects: [],
+      actions: []
+    };
+  }
+
+  getProjects() {
+    axios
+      .get(`${url}/projects`)
+      .then(res => this.setState({ projects: res.data }))
+      .catch(err => console.log(err));
+    console.log(this.state.projects);
+  }
+
+  getActions() {
+    axios
+      .get(`${url}/actions`)
+      .then(res => this.setState({ actions: res.data }))
+      .catch(err => console.log(err));
+    console.log(this.state.actions);
+  }
+
+  componentDidMount() {
+    this.getProjects();
+    this.getActions();
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <ProjectsList projects={this.state.projects} />
+        <ActionsList actions={this.state.actions} />
+      </div>
+    );
+  }
 }
 
 export default App;
