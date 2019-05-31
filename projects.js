@@ -45,3 +45,18 @@ server.post("/projects", (req, res) => {
       });
   }
 });
+
+server.put('/projects/:id', (req, res) => {
+    const { id } = req.params;
+    const updatedProject = req.body;
+  
+    projectModel
+      .update(id, updatedProject)
+      .then(updateProject => {
+        res.status(201).json({ "Project Updated": updateProject });
+      })
+      .catch(err => {
+        res.send(err);
+      });
+  })
+  
