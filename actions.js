@@ -42,6 +42,18 @@ server.post("/actions", (req, res) => {
   }
 });
 
+server.put("/actions/:id", (req, res) => {
+  const { id } = req.params;
+  const updatedAction = req.body;
 
+  actionModel
+    .update(id, updatedAction)
+    .then(updateAction => {
+      res.status(201).json({ "Project has been updated.": updateAction });
+    })
+    .catch(err => {
+      res.send(err);
+    });
+});
 
 module.exports = server;
