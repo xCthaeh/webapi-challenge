@@ -60,3 +60,13 @@ server.put('/projects/:id', (req, res) => {
       });
   })
   
+  server.delete("/projects/:id", (req, res) => {
+    projectModel
+      .remove(req.params.id)
+      .then(count => {
+        res.status(201).json(count)
+      })
+      .catch(err => {
+        res.status(500).json({ error: err })
+      })
+  }) 
