@@ -46,27 +46,41 @@ server.post("/projects", (req, res) => {
   }
 });
 
-server.put('/projects/:id', (req, res) => {
-    const { id } = req.params;
-    const updatedProject = req.body;
-  
-    projectModel
-      .update(id, updatedProject)
-      .then(updateProject => {
-        res.status(201).json({ "Project Updated": updateProject });
-      })
-      .catch(err => {
-        res.send(err);
-      });
-  })
-  
-  server.delete("/projects/:id", (req, res) => {
-    projectModel
-      .remove(req.params.id)
-      .then(count => {
-        res.status(201).json(count)
-      })
-      .catch(err => {
-        res.status(500).json({ error: err })
-      })
-  }) 
+server.put("/projects/:id", (req, res) => {
+  const { id } = req.params;
+  const updatedProject = req.body;
+
+  projectModel
+    .update(id, updatedProject)
+    .then(updateProject => {
+      res.status(201).json({ "Project Updated": updateProject });
+    })
+    .catch(err => {
+      res.send(err);
+    });
+});
+
+server.delete("/projects/:id", (req, res) => {
+  projectModel
+    .remove(req.params.id)
+    .then(count => {
+      res.status(201).json(count);
+    })
+    .catch(err => {
+      res.status(500).json({ error: err });
+    });
+});
+
+server.get("/projectActions/:id", (req, res) => {
+  const { id } = req.params;
+  projectModel
+    .getProjectActions(id)
+    .then(actions => {
+      res.status(200).json(actions);
+    })
+    .catch(err => {
+      res.status(500).json(err);
+    });
+});
+
+module.exports = server;
