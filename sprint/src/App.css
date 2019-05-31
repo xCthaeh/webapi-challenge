@@ -1,0 +1,17 @@
+.App {
+  text-align: center;
+}
+
+body {
+  background-color: rgb(58, 16, 16);
+}
+
+h1 {
+  color: rgb(160, 157, 165);
+  border: 10px ridge rgb(173, 34, 57);
+  border-radius: 20px;
+  width:40%;
+  margin-left: 30%;
+  padding: 2%;
+}
+
