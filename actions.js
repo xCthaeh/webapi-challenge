@@ -2,6 +2,9 @@ const express = require("express");
 const cors = require("cors");
 const actionModel = require("./data/helpers/actionModel.js");
 
+server.use(cors());
+server.use(express.json());
+
 server.get("/actions", (req, res) => {
   actionModel
     .get()
